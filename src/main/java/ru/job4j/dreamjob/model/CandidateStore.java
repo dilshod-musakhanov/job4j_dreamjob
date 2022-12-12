@@ -1,6 +1,5 @@
 package ru.job4j.dreamjob.model;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,9 +11,9 @@ public class CandidateStore {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Anna", "1 year experience", LocalDate.now()));
-        candidates.put(2, new Candidate(2, "Garik", "3 years experience", LocalDate.now()));
-        candidates.put(3, new Candidate(3, "Azamat", "5 years experience", LocalDate.now()));
+        candidates.put(1, new Candidate(1, "Anna", "1 year experience"));
+        candidates.put(2, new Candidate(2, "Garik", "3 years experience"));
+        candidates.put(3, new Candidate(3, "Azamat", "5 years experience"));
     }
 
     public static CandidateStore instOf() {
