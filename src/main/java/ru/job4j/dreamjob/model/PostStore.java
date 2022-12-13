@@ -3,12 +3,14 @@ package ru.job4j.dreamjob.model;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostStore {
 
     private static final PostStore INST = new PostStore();
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private final AtomicInteger id = new AtomicInteger();
 
     private PostStore() {
         posts.put(1, new Post(1, "Junior Java Job", "Very hard tasks"));
@@ -25,6 +27,7 @@ public class PostStore {
     }
 
     public void add(Post post) {
+        post.setId(id.getAndIncrement());
         posts.put(post.getId(), post);
     }
 
