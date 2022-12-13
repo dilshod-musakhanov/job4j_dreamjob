@@ -4,12 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CandidateStore {
 
     private static final CandidateStore INST = new CandidateStore();
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final AtomicInteger id = new AtomicInteger();
 
     private CandidateStore() {
         candidates.put(1, new Candidate(1, "Anna", "1 year experience"));
@@ -26,6 +28,7 @@ public class CandidateStore {
     }
 
     public void add(Candidate candidate) {
+        candidate.setId(id.getAndIncrement());
         candidates.put(candidate.getId(), candidate);
     }
 
