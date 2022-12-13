@@ -7,16 +7,15 @@ public class Post {
     private int id;
     private String name;
     private String description;
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
     }
 
-    public Post(int id, String name, String description, LocalDateTime created) {
+    public Post(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.created = created;
     }
 
     public int getId() {
