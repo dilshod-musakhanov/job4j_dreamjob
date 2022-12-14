@@ -28,7 +28,7 @@ public class CandidateStore {
     }
 
     public void add(Candidate candidate) {
-        candidate.setId(id.getAndIncrement());
+        candidate.setId(candidates.size() + (1 + id.getAndIncrement()));
         candidates.put(candidate.getId(), candidate);
     }
 
