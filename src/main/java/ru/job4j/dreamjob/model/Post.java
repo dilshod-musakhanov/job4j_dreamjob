@@ -7,6 +7,7 @@ public class Post {
     private int id;
     private String name;
     private String description;
+    private boolean visible;
     private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
@@ -48,6 +49,14 @@ public class Post {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     @Override
