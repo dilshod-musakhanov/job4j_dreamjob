@@ -14,9 +14,6 @@ public class PostStore {
     private final AtomicInteger id = new AtomicInteger();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "Very hard tasks"));
-        posts.put(2, new Post(2, "Middle Java Job", "Normal tasks"));
-        posts.put(3, new Post(3, "Senior Java Job", "Easy tasks"));
     }
 
     public static PostStore instOf() {
@@ -28,7 +25,7 @@ public class PostStore {
     }
 
     public void add(Post post) {
-        post.setId(posts.size() + id.incrementAndGet());
+        post.setId(id.incrementAndGet());
         posts.put(post.getId(), post);
     }
 
