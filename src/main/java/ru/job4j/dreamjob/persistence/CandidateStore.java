@@ -15,9 +15,6 @@ public class CandidateStore {
     private final AtomicInteger id = new AtomicInteger();
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Anna", "1 year experience"));
-        candidates.put(2, new Candidate(2, "Garik", "3 years experience"));
-        candidates.put(3, new Candidate(3, "Azamat", "5 years experience"));
     }
 
     public static CandidateStore instOf() {
@@ -29,7 +26,7 @@ public class CandidateStore {
     }
 
     public void add(Candidate candidate) {
-        candidate.setId(candidates.size() + id.incrementAndGet());
+        candidate.setId(id.incrementAndGet());
         candidates.put(candidate.getId(), candidate);
     }
 
