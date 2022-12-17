@@ -1,13 +1,15 @@
 package ru.job4j.dreamjob.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Post {
+public class Post implements Serializable {
     private int id;
     private String name;
     private String description;
     private boolean visible;
+    private City city;
     private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
@@ -41,6 +43,14 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public LocalDateTime getCreated() {

@@ -7,16 +7,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.service.CandidateService;
+import ru.job4j.dreamjob.service.CityService;
 
 
 @Controller
 public class CandidateController {
 
     private final CandidateService candidateService;
+    private final CityService cityService;
 
-    public CandidateController(CandidateService candidateService) {
+    public CandidateController(CandidateService candidateService, CityService cityService) {
         this.candidateService = candidateService;
+        this.cityService = cityService;
     }
 
     @GetMapping("/candidates")
@@ -26,12 +30,15 @@ public class CandidateController {
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate() {
+    public String formAddCandidate(Model model) {
+        model.addAttribute("cities", cityService.getAllCities());
         return "addCandidate";
     }
 
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate) {
+        City city = cityService.findById(candidate.getCity().getId());
+        candidate.setCity(city);
         candidateService.add(candidate);
         return "redirect:/candidates";
     }
@@ -39,11 +46,14 @@ public class CandidateController {
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
         model.addAttribute("candidate", candidateService.findById(id));
+        model.addAttribute("cities", cityService.getAllCities());
         return "updateCandidate";
     }
 
     @PostMapping("/updateCandidate")
     public String updateCandidate(@ModelAttribute Candidate candidate) {
+        City city = cityService.findById(candidate.getCity().getId());
+        candidate.setCity(city);
         candidateService.update(candidate);
         return "redirect:/candidates";
     }

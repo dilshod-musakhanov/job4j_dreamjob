@@ -7,6 +7,7 @@ public class Candidate {
     private int id;
     private String name;
     private String description;
+    private City city;
     private LocalDateTime created = LocalDateTime.now();
 
     public Candidate() {
@@ -41,6 +42,14 @@ public class Candidate {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public LocalDateTime getCreated() {
