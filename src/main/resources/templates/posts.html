@@ -63,7 +63,15 @@
                         <i class="fa fa-square-o"></i>
                     </span>
                 </td>
-                <td th:text="${post.description}" />
+                <td>
+                    <span th:text="${post.description}"></span>
+                    <span th:if="${post.visible}">
+                        <i class="fa fa-check-square-o"></i>
+                    </span>
+                    <span th:if="${!post.visible}">
+                        <i class="fa fa-square-o"></i>
+                    </span>
+                </td>
                 <td th:text="${post.city.name}" />
                 <td th:text="${post.created}" />
             </tr>
