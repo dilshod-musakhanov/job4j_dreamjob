@@ -22,7 +22,7 @@ public class PostDbStore {
     private static final String FIND_BY_ID = "SELECT * FROM post WHERE id = ?";
     private final BasicDataSource pool;
 
-    private PostDbStore(BasicDataSource pool) {
+    public PostDbStore(BasicDataSource pool) {
         this.pool = pool;
     }
 

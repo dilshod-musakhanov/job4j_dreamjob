@@ -21,7 +21,7 @@ public class CandidateDbStore {
     private static final String FIND_BY_ID = "SELECT * FROM candidate WHERE id = ?";
     private final BasicDataSource pool;
 
-    private CandidateDbStore(BasicDataSource pool) {
+    public CandidateDbStore(BasicDataSource pool) {
         this.pool = pool;
     }
 
