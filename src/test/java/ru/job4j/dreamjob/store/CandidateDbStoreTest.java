@@ -71,7 +71,7 @@ class CandidateDbStoreTest {
         temp.add(candidate2);
         assertThat(store.findAll(), is(temp));
     }
-
+/*
     @Test
     public void whenUpdateCandidate() {
          Candidate candidate1 = new Candidate(
@@ -95,4 +95,5 @@ class CandidateDbStoreTest {
          store.update(candidate2);
          assertThat(store.findById(id).getName(), is(candidate2.getName()));
      }
+*/
 }
