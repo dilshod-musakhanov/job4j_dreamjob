@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import ru.job4j.dreamjob.config.JdbcConfiguration;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,19 +13,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
+import static org.assertj.core.api.Assertions.*;
 
 class PostDbStoreTest {
-
-    private final PostDbStore store = new PostDbStore(new JdbcConfiguration().loadPool());
 
     @AfterEach
     public void cleanTable() throws SQLException {
         BasicDataSource pool = new JdbcConfiguration().loadPool();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("delete from post");
+             PreparedStatement ps = cn.prepareStatement("TRUNCATE TABLE post RESTART IDENTITY");
         ) {
             ps.execute();
         }
@@ -34,6 +29,7 @@ class PostDbStoreTest {
 
     @Test
     public void whenCreatePost() {
+        PostDbStore store = new PostDbStore(new JdbcConfiguration().loadPool());
         Post post = new Post(
                 0,
                 "Java Job",
@@ -44,11 +40,12 @@ class PostDbStoreTest {
         );
         store.add(post);
         Post postInDb = store.findById(post.getId());
-        assertThat(postInDb.getName(), is(post.getName()));
+        assertThat(postInDb.getName()).isEqualTo(post.getName());
     }
 
     @Test
     public void whenFindAllPosts() {
+        PostDbStore store = new PostDbStore(new JdbcConfiguration().loadPool());
         Post post = new Post(
                 0,
                 "Java Job",
@@ -70,11 +67,12 @@ class PostDbStoreTest {
         Collection<Post> temp = new ArrayList<>();
         temp.add(post);
         temp.add(post2);
-        assertThat(store.findAll(), is(temp));
+        assertThat(temp).isEqualTo(store.findAll());
     }
-/*
+
     @Test
     public void whenUpdatePost() {
+        PostDbStore store = new PostDbStore(new JdbcConfiguration().loadPool());
         Post post1 = new Post(
                 1,
                 "Java Job",
@@ -94,7 +92,7 @@ class PostDbStoreTest {
                 LocalDateTime.now()
         );
         store.update(post2);
-        assertThat(store.findById(id).getName(), is(post2.getName()));
+        assertThat(post2.getName()).isEqualTo(store.findById(id).getName());
     }
-*/
+
 }
