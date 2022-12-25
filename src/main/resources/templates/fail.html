@@ -49,35 +49,10 @@
                 <th scope="col">Опубликовано</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="post: ${posts}">
-                <td th:text="${post.id}" />
-                <td>
-                    <a th:href="@{|/formUpdatePost/${post.id}}">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <span th:text="${post.name}"></span>
-                    <span th:if="${post.visible}">
-                        <i class="fa fa-check-square-o"></i>
-                    </span>
-                    <span th:if="${!post.visible}">
-                        <i class="fa fa-square-o"></i>
-                    </span>
-                </td>
-                <td>
-                    <span th:text="${post.description}"></span>
-                    <span th:if="${post.visible}">
-                        <i class="fa fa-check-square-o"></i>
-                    </span>
-                    <span th:if="${!post.visible}">
-                        <i class="fa fa-square-o"></i>
-                    </span>
-                </td>
-                <td th:text="${post.city.name}" />
-                <td th:text="${post.created}" />
-            </tr>
-            </tbody>
         </table>
+        <div class="alert alert-danger" role="alert">
+            Пользователь с такой почтой уже существует.
+        </div>
     </div>
 </div>
 </body>
