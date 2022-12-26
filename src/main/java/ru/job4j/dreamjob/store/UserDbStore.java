@@ -17,10 +17,11 @@ import java.util.Optional;
 public class UserDbStore {
 
     private final static Logger LOG = LoggerFactory.getLogger(UserDbStore.class.getName());
-    private final static String ADD = "INSERT INTO users(name, email) VALUES (?, ?)";
+    private final static String ADD = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
     private final static String FIND_ALL = "SELECT * FROM users";
     private final static String FIND_BY_ID = "SELECT FROM users WHERE id = ?";
     private final static String UPDATE = "UPDATE users SET name = ?, email = ? WHERE id = ?";
+    private final static String FIND_BY_EMAIL_AND_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
     private final BasicDataSource pool;
 
     public UserDbStore(BasicDataSource pool) {
@@ -80,6 +81,24 @@ public class UserDbStore {
         return Optional.empty();
     }
 
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        Optional<User> rsl = Optional.empty();
+        try (Connection cn = pool.getConnection();
+            PreparedStatement ps = cn.prepareStatement(FIND_BY_EMAIL_AND_PASSWORD);
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    rsl = Optional.of(createUser(it));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Exception in method findUserByEmailAndPassword()" , e);
+        }
+        return rsl;
+    }
+
     public void update(User user) {
         boolean flag = false;
         try (Connection cn = pool.getConnection();
@@ -102,13 +121,15 @@ public class UserDbStore {
     public void setStatement(PreparedStatement ps, User user) throws SQLException {
         ps.setString(1, user.getName());
         ps.setString(2, user.getEmail());
+        ps.setString(3, user.getPassword());
     }
 
     public User createUser(ResultSet it) throws SQLException {
         return new User(
                 it.getInt("id"),
                 it.getString("name"),
-                it.getString("email")
+                it.getString("email"),
+                it.getString("password")
         );
     }
 }

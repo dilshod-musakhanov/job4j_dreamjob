@@ -28,46 +28,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Главная <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" th:href="@{/index}">Главная <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
                 <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
                 <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
                 <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
                 <a class="nav-item nav-link" th:href="@{/formAddUser}">Регистрация</a>
+                <a class="nav-item nav-link" th:href="@{/loginPage}">Войти</a>
             </div>
         </div>
     </nav>
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>DynamicUpdate</td>
-                <td>DynamicUpdate</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>DynamicUpdate</td>
-                <td>DynamicUpdate</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>DynamicUpdate</td>
-                <td>DynamicUpdate</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
 </body>
