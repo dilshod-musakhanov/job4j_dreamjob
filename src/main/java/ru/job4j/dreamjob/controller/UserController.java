@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
 import java.util.Optional;
 
 @Controller
@@ -26,22 +29,36 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("login")
-    public String login(@ModelAttribute User user) {
+    @PostMapping("/login")
+    public String login(@ModelAttribute User user, HttpServletRequest req) {
         Optional<User> userDb = userService.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userDb.isEmpty()) {
             return "redirect:/loginPage?fail=true";
         }
+        HttpSession session = req.getSession();
+        session.setAttribute("user", userDb.get());
         return "redirect:/index";
     }
 
     @GetMapping("/success")
-    public String success(){
+    public String success(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "success";
     }
 
     @GetMapping("/fail")
-    public String fail(){
+    public String fail(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "fail";
     }
 
