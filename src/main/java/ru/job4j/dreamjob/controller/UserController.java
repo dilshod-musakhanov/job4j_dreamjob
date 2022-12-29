@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
+import ru.job4j.dreamjob.util.HttpSessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpRequest;
 import java.util.Optional;
 
 @Controller
@@ -42,23 +42,13 @@ public class UserController {
 
     @GetMapping("/success")
     public String success(Model model, HttpSession session){
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        HttpSessionUtil.passUserAttribute(model, session);
         return "success";
     }
 
     @GetMapping("/fail")
     public String fail(Model model, HttpSession session){
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        HttpSessionUtil.passUserAttribute(model, session);
         return "fail";
     }
 
