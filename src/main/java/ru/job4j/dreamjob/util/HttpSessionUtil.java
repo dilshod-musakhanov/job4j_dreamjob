@@ -5,7 +5,12 @@ import ru.job4j.dreamjob.model.User;
 
 import javax.servlet.http.HttpSession;
 
-public class HttpSessionUtil {
+public final class HttpSessionUtil {
+
+    private HttpSessionUtil() {
+
+    }
+
     public static void passUserAttribute(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
