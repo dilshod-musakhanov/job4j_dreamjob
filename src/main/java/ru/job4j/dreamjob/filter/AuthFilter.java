@@ -41,13 +41,6 @@ public class AuthFilter implements Filter {
     }
 
     public boolean uriMatch(String uri) {
-        boolean flag = false;
-        for (String str : URI_LIST) {
-            if (uri.endsWith(str)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
+        return URI_LIST.stream().anyMatch(uri::endsWith);
     }
 }
